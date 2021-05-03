@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class LoginController {
 
@@ -34,13 +35,29 @@ public class LoginController {
     }
     
     @FXML
-    public void login() {
-
-    	System.out.println("Login clicked");
-
-  	}
-    
-    public void changeScene() {
+    public void login(ActionEvent event) throws IOException {
+    	
+    	if (fieldCode.getText().equals("1234") && fieldPassword.getText().equals("4321")) {
+    		
+    		System.out.println("Login correct");
+    		
+    		Stage stage = new Stage();
+    		
+    		Parent root = FXMLLoader.load(Main.class.getResource("MenuView.fxml"));
+			
+			Scene scene = new Scene(root);
+			
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		
+			stage.setScene(scene);
+			stage.show();
+			
+			btnLogin.getScene().getWindow().hide();
+    		
+    	} else {
+    		
+    		System.out.println("Login failed");
+    	}
 
   	}
 
