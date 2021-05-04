@@ -1,6 +1,14 @@
 package application;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +20,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import model.Restaurant;
+import util.RequestUtils;
 
 public class LoginController {
 
@@ -37,22 +47,15 @@ public class LoginController {
     @FXML
     public void login(ActionEvent event) throws IOException {
     	
-    	if (fieldCode.getText().equals("1234") && fieldPassword.getText().equals("4321")) {
-    		
-    		System.out.println("Login correct");
-    		
-    		Stage stage = new Stage();
-    		
-    		Parent root = FXMLLoader.load(Main.class.getResource("MenuView.fxml"));
-			
-			Scene scene = new Scene(root);
-			
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		
-			stage.setScene(scene);
-			stage.show();
-			
-			btnLogin.getScene().getWindow().hide();
+    	Boolean login = false;
+    	
+    	String data = RequestUtils.getJSON("https://apilergens.herokuapp.com/restaurants/getByCode?code="+fieldCode.getText());
+    	
+    	System.out.println(data);
+        	
+    	if (login) {
+    		    		
+    		changeScene();
     		
     	} else {
     		
@@ -60,6 +63,23 @@ public class LoginController {
     	}
 
   	}
+    
+    void changeScene() throws IOException {
+    	
+    	Stage stage = new Stage();
+		
+		Parent root = FXMLLoader.load(Main.class.getResource("MenuView.fxml"));
+		
+		Scene scene = new Scene(root);
+		
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+	
+		stage.setScene(scene);
+		stage.show();
+		
+		btnLogin.getScene().getWindow().hide();
+    	
+    }
 
 
 }
