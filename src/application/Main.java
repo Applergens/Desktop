@@ -40,20 +40,6 @@ public class Main extends Application {
 		launch(args);
 	}
 	
-	@Override
-    public void stop() {
-    	
-		try {
-			
-			launchLogin();
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-    	
-    }
-	
 	public void launchLogin() throws IOException {
 		
 		Parent root = FXMLLoader.load(Main.class.getResource("LoginView.fxml"));

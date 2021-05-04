@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class MenuController {
+	
+	double xOffset = 0;
+	double yOffset = 0;
 
     @FXML
     private Button btn1;
@@ -53,6 +56,28 @@ public class MenuController {
 		
 		stage.initStyle(StageStyle.DECORATED.UNDECORATED);
 
+		root.setOnMousePressed(new EventHandler<MouseEvent>()  {
+
+			@Override
+			public void handle(MouseEvent event) {
+
+				xOffset = event.getSceneX();
+				yOffset = event.getSceneY();
+				
+			}
+		});
+		
+		root.setOnMouseDragged(new EventHandler<MouseEvent>()  {
+
+			@Override
+			public void handle(MouseEvent event) {
+
+				stage.setX(event.getScreenX() - xOffset);
+				stage.setY(event.getScreenY() - yOffset);
+				
+			}
+		});
+		
 		stage.setScene(scene);
 		stage.show();
 		
