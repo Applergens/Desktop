@@ -1,52 +1,42 @@
 package util;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse.BodyHandlers;
 
 public class RequestUtils {
 	
-	public static String getJSON(String url1) throws IOException {
+	public static String api = "https://apilergens.herokuapp.com";
+	
+	public static boolean httpPostJson(String endPoint, String jsonData) throws IOException, InterruptedException {
 		
-	    HttpURLConnection con = null;
-	    
-	    try {
-	    	
-	        URL url = new URL(url1);
-	        
-	        con = (HttpURLConnection) url.openConnection();
-	        con.setRequestMethod("GET");
-	        con.setRequestProperty("Content-length", "0");
-	        con.setUseCaches(false);
-	        con.setAllowUserInteraction(false);
-	        con.connect();
-	        
-	        int status = con.getResponseCode();
-	        
-	        BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	        StringBuilder sb = new StringBuilder();
-	        String line;
-	        
-	        while ((line = br.readLine()) != null) {
-	        	
-	        	sb.append(line+"\n");
-	        	
-	        }
-	        
-	        br.close();
-	        return sb.toString();
-
-	    } finally {
-	    	
-	       if (con != null) {
-	    	   
-	    	   con.disconnect();
-	       }
-	       
-	    }
-	    
+		URI uri = URI.create(api + endPoint);
+		
+		HttpClient client = HttpClient.newHttpClient();
+		
+		HttpRequest request = HttpRequest.newBuilder(uri)
+				.header("Accept", "application/json")
+				.header("Content-Type", "application/json")
+				.POST(BodyPublishers.ofString(jsonData))
+				.build();
+		
+		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
+		
+		if (response.statusCode() == 200) {
+			
+			return true;
+			
+		} else {
+			
+			return false;
+			
+		}
+		
 	}
+	
+	
 }

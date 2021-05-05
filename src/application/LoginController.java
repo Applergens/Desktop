@@ -10,6 +10,8 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 
+import com.google.gson.Gson;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Restaurant;
+import util.AuthCredentials;
 import util.RequestUtils;
 
 public class LoginController {
@@ -45,17 +48,19 @@ public class LoginController {
     }
     
     @FXML
-    public void login(ActionEvent event) throws IOException {
+    public void login(ActionEvent event) throws IOException, InterruptedException {
+    	       	    	
+    	String endPoint = "/login/restaurant";
     	
-    	Boolean login = false;
+    	AuthCredentials authCredentials = new AuthCredentials(fieldCode.getText(), fieldPassword.getText());
     	
-    	String data = RequestUtils.getJSON("https://apilergens.herokuapp.com/restaurants/getByCode?code="+fieldCode.getText());
+    	String requestBody = new Gson().toJson(authCredentials);
     	
-    	System.out.println(data);
+    	Boolean login = RequestUtils.httpPostJson(endPoint, requestBody);
         	
     	if (login) {
     		    		
-    		changeScene();
+    		changeScene("MenuView.fxml");
     		
     	} else {
     		
@@ -64,11 +69,11 @@ public class LoginController {
 
   	}
     
-    void changeScene() throws IOException {
+    void changeScene(String nextScene) throws IOException {
     	
     	Stage stage = new Stage();
 		
-		Parent root = FXMLLoader.load(Main.class.getResource("MenuView.fxml"));
+		Parent root = FXMLLoader.load(Main.class.getResource(nextScene));
 		
 		Scene scene = new Scene(root);
 		
