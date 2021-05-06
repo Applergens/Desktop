@@ -11,10 +11,13 @@ import java.net.http.HttpResponse.BodyHandlers;
 public class RequestUtils {
 	
 	public static String api = "https://apilergens.herokuapp.com";
+	public static String apiLocal = "http://localhost:5000";
 	
-	public static boolean httpPostJson(String endPoint, String jsonData) throws IOException, InterruptedException {
+	
+	public static String httpPostRequest(String endPoint, String jsonData) throws IOException, InterruptedException {
 		
-		URI uri = URI.create(api + endPoint);
+//		URI uri = URI.create(api + endPoint);
+		URI uri = URI.create(apiLocal + endPoint);
 		
 		HttpClient client = HttpClient.newHttpClient();
 		
@@ -28,11 +31,11 @@ public class RequestUtils {
 		
 		if (response.statusCode() == 200) {
 			
-			return true;
+			return response.body();
 			
 		} else {
 			
-			return false;
+			return "Invalid";
 			
 		}
 		

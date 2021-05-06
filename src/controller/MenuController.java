@@ -1,7 +1,8 @@
-package application;
+package controller;
 
 import java.io.IOException;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -48,11 +49,9 @@ public class MenuController {
     	
     	Stage stage = new Stage();
     	
-    	Parent root = FXMLLoader.load(Main.class.getResource("LoginView.fxml"));
+    	Parent root = FXMLLoader.load(Main.class.getResource("../view/LoginView.fxml"));
 		
 		Scene scene = new Scene(root);
-		
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
 		stage.initStyle(StageStyle.DECORATED.UNDECORATED);
 
@@ -83,6 +82,21 @@ public class MenuController {
 		
 		btnExit.getScene().getWindow().hide();
 
+    }
+    
+    void changeScene(String nextScene) throws IOException {
+    	
+    	Stage stage = new Stage();
+		
+		Parent root = FXMLLoader.load(LoginController.class.getResource("../view/" + nextScene));
+		
+		Scene scene = new Scene(root);
+	
+		stage.setScene(scene);
+		stage.show();
+		
+		btn1.getScene().getWindow().hide();
+    	
     }
 
 }

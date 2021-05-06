@@ -37,16 +37,16 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		
 		launch(args);
+		
 	}
 	
 	public void launchLogin() throws IOException {
 		
-		Parent root = FXMLLoader.load(Main.class.getResource("LoginView.fxml"));
+		Parent root = FXMLLoader.load(Main.class.getResource("../view/LoginView.fxml"));
 		
 		Scene scene = new Scene(root);
-		
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		
 		stage.initStyle(StageStyle.DECORATED.UNDECORATED);
 		

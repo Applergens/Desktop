@@ -1,4 +1,4 @@
-package application;
+package controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +12,7 @@ import java.net.http.HttpRequest;
 
 import com.google.gson.Gson;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,9 +25,12 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Restaurant;
 import util.AuthCredentials;
+import util.JsonUtils;
 import util.RequestUtils;
 
 public class LoginController {
+	
+	static String endPoint = "/login/restaurant";
 
     @FXML
     private PasswordField fieldPassword;
@@ -49,14 +53,25 @@ public class LoginController {
     
     @FXML
     public void login(ActionEvent event) throws IOException, InterruptedException {
-    	       	    	
-    	String endPoint = "/login/restaurant";
+    	
+    	Boolean login;
     	
     	AuthCredentials authCredentials = new AuthCredentials(fieldCode.getText(), fieldPassword.getText());
     	
     	String requestBody = new Gson().toJson(authCredentials);
     	
-    	Boolean login = RequestUtils.httpPostJson(endPoint, requestBody);
+    	String responseBody = RequestUtils.httpPostRequest(endPoint, requestBody);
+    	
+    	if (responseBody == "Invalid") {
+    		
+    		login = false;
+    		
+    	} else {
+    		
+    		JsonUtils.RestaurantJSONtoObject(responseBody);
+    		
+    		login = true;
+    	}
         	
     	if (login) {
     		    		
@@ -65,6 +80,7 @@ public class LoginController {
     	} else {
     		
     		System.out.println("Login failed");
+    		
     	}
 
   	}
@@ -73,11 +89,9 @@ public class LoginController {
     	
     	Stage stage = new Stage();
 		
-		Parent root = FXMLLoader.load(Main.class.getResource(nextScene));
+		Parent root = FXMLLoader.load(LoginController.class.getResource("../view/" + nextScene));
 		
 		Scene scene = new Scene(root);
-		
-		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 	
 		stage.setScene(scene);
 		stage.show();
