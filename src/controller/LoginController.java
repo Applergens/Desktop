@@ -56,22 +56,24 @@ public class LoginController {
     	
     	Boolean login;
     	
-    	AuthCredentials authCredentials = new AuthCredentials(fieldCode.getText(), fieldPassword.getText());
+//    	AuthCredentials authCredentials = new AuthCredentials(fieldCode.getText(), fieldPassword.getText());
+//    	
+//    	String requestBody = new Gson().toJson(authCredentials);
+//    	
+//    	String responseBody = RequestUtils.httpPostRequest(endPoint, requestBody);
+//    	
+//    	if (responseBody == "Invalid") {
+//    		
+//    		login = false;
+//    		
+//    	} else {
+//        	
+//        	Restaurant rest = new Gson().fromJson(responseBody, Restaurant.class);
+//    		
+//    		login = true;
+//    	}
     	
-    	String requestBody = new Gson().toJson(authCredentials);
-    	
-    	String responseBody = RequestUtils.httpPostRequest(endPoint, requestBody);
-    	
-    	if (responseBody == "Invalid") {
-    		
-    		login = false;
-    		
-    	} else {
-    		
-    		JsonUtils.RestaurantJSONtoObject(responseBody);
-    		
-    		login = true;
-    	}
+    	login = true;
         	
     	if (login) {
     		    		

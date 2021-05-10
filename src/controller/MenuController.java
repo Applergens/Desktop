@@ -1,12 +1,20 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import java.lang.reflect.Type;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import application.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,8 +22,11 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Allergen;
+import model.Ingredient;
+import util.RequestUtils;
 
-public class MenuController {
+public class MenuController  implements Initializable{
 	
 	double xOffset = 0;
 	double yOffset = 0;
@@ -98,5 +109,55 @@ public class MenuController {
 		btn1.getScene().getWindow().hide();
     	
     }
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		try {
+			
+			Gson gson = new Gson(); 
+			
+			String responseBody = RequestUtils.getAllRequest("/ingredients");			
+			 
+			Type ingredientListType = new TypeToken<ArrayList<Ingredient>>(){}.getType();
+			 
+			ArrayList<Ingredient> ingredientList = gson.fromJson(responseBody, ingredientListType);
+			
+			for (Ingredient i : ingredientList) {
+				
+				System.out.println(i.getName());
+				
+			}
+			
+			responseBody = RequestUtils.getAllRequest("/allergens");			
+			 
+			Type allergenListType = new TypeToken<ArrayList<Allergen>>(){}.getType();
+			 
+			ArrayList<Allergen> allergenList = gson.fromJson(responseBody, allergenListType);
+			
+			for (Allergen a : allergenList) {
+				
+				System.out.println(a.getName());
+				
+			}
+			
+			responseBody = RequestUtils.getByIdRequest("/allergens" , "6092a36190ee20b75353870a");
+			
+			Allergen allergen = gson.fromJson(responseBody, Allergen.class);
+			
+			responseBody = RequestUtils.getByIdRequest("/ingredients" , "6092cd1e90ee20b75353870b");
+		
+			Ingredient ingredient = gson.fromJson(responseBody, Ingredient.class);
+			
+			System.out.println(allergen.getName());
+			System.out.println(ingredient.getName());
+			
+		} catch (IOException | InterruptedException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+	}
 
 }

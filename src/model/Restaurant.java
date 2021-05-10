@@ -1,16 +1,19 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Restaurant {
 	
 	String address;
-	String code;
+	int code;
 	String name;
 	String password;
 	String phone;
+	ArrayList<Dish> dishes;
 	
 	public Restaurant(String code, String password) {
 		
-		this.code = code;
+		this.code = Integer.valueOf(code);
 		this.password = password;
 		
 	}
@@ -19,7 +22,7 @@ public class Restaurant {
 		return address;
 	}
 
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
 
@@ -49,6 +52,20 @@ public class Restaurant {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public ArrayList<Dish> getDishes() {
+		return dishes;
+	}
+
+	public void setDishes(ArrayList<Dish> dishes) {
+		this.dishes = dishes;
+	}
+	
+	public void addDish(Dish dish) {
+		
+		dishes.add(dish);
+		
 	}
 	
 }
