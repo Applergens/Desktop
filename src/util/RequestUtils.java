@@ -27,8 +27,6 @@ public class RequestUtils {
 		
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 		
-		System.out.println(response.body());
-		
 		if (response.statusCode() == 200) {
 			
 			return response.body();
@@ -52,8 +50,6 @@ public class RequestUtils {
 		
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 		
-		System.out.println(response.body());
-		
 		if (response.statusCode() == 200) {
 			
 			return response.body();
@@ -76,8 +72,6 @@ public class RequestUtils {
 				.build();
 		
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-		
-		System.out.println(response.body());
 		
 		if (response.statusCode() == 200) {
 			
