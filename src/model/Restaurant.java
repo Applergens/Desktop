@@ -17,6 +17,15 @@ public class Restaurant {
 		this.password = password;
 		
 	}
+	
+	public Restaurant(String address, int code, String name, String password, String phone) {
+		this.address = address;
+		this.code = code;
+		this.name = name;
+		this.password = password;
+		this.phone = phone;
+		this.dishes = new ArrayList<Dish>();
+	}
 
 	public String getAddress() {
 		return address;
@@ -44,10 +53,6 @@ public class Restaurant {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public void setPhone(String phone) {

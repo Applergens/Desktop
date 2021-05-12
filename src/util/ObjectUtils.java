@@ -129,18 +129,6 @@ public class ObjectUtils {
 			
 		}
 		
-		for (Dish dish : Main.restaurant.getDishes()) {
-			
-			System.out.println(dish.getName());
-			
-			for (Ingredient ingredient : dish.getIngredients()) {
-				
-				System.out.println(ingredient.getName() + " - " + ingredient.getAllergen().getName());
-				
-			}
-			
-		}
-		
 	}
 	
 	public static Ingredient getIngredientByID(String objectId) {

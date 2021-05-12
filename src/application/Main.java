@@ -1,6 +1,7 @@
 package application;
 	
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -11,8 +12,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+import model.Allergen;
+import model.Ingredient;
+import model.Restaurant;
 
 public class Main extends Application {
+	
+	public static Restaurant restaurant;
+	
+	public static ArrayList<Allergen> allergenList;
+	public static ArrayList<Ingredient> ingredientList;
 	
 	Stage stage;
 	
@@ -24,9 +33,9 @@ public class Main extends Application {
 		
 		this.stage = stage;
 
-		
 		try {
 			
+			initializeStructures();
 			launchLogin();
 			
 		} catch (IOException e) {
@@ -35,10 +44,17 @@ public class Main extends Application {
 		}
 		
 	}
-	
+
 	public static void main(String[] args) {
 		
 		launch(args);
+		
+	}
+	
+	private void initializeStructures() {
+
+		allergenList = new ArrayList<Allergen>();
+		ingredientList = new ArrayList<Ingredient>();
 		
 	}
 	

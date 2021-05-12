@@ -4,21 +4,23 @@ import java.util.ArrayList;
 
 public class Dish {
 	
-	String id;
 	String name;
 	ArrayList<Ingredient> ingredients;
-	public String getId() {
-		return id;
+		
+	public Dish(String name) {
+		super();
+		this.name = name;
+		this.ingredients = new ArrayList<Ingredient>();
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public ArrayList<Ingredient> getIngredients() {
 		return ingredients;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -29,6 +31,12 @@ public class Dish {
 	public void addIngredient(Ingredient ingredient) {
 		
 		ingredients.add(ingredient);
+		
+	}
+	
+	public void removeIngredient(Ingredient ingredient) {
+		
+		ingredients.remove(ingredient);
 		
 	}
 	

@@ -113,50 +113,7 @@ public class MenuController  implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		try {
-			
-			Gson gson = new Gson(); 
-			
-			String responseBody = RequestUtils.getAllRequest("/ingredients");			
-			 
-			Type ingredientListType = new TypeToken<ArrayList<Ingredient>>(){}.getType();
-			 
-			ArrayList<Ingredient> ingredientList = gson.fromJson(responseBody, ingredientListType);
-			
-			for (Ingredient i : ingredientList) {
-				
-				System.out.println(i.getName());
-				
-			}
-			
-			responseBody = RequestUtils.getAllRequest("/allergens");			
-			 
-			Type allergenListType = new TypeToken<ArrayList<Allergen>>(){}.getType();
-			 
-			ArrayList<Allergen> allergenList = gson.fromJson(responseBody, allergenListType);
-			
-			for (Allergen a : allergenList) {
-				
-				System.out.println(a.getName());
-				
-			}
-			
-			responseBody = RequestUtils.getByIdRequest("/allergens" , "6092a36190ee20b75353870a");
-			
-			Allergen allergen = gson.fromJson(responseBody, Allergen.class);
-			
-			responseBody = RequestUtils.getByIdRequest("/ingredients" , "6092cd1e90ee20b75353870b");
 		
-			Ingredient ingredient = gson.fromJson(responseBody, Ingredient.class);
-			
-			System.out.println(allergen.getName());
-			System.out.println(ingredient.getName());
-			
-		} catch (IOException | InterruptedException e) {
-			
-			e.printStackTrace();
-			
-		}
 		
 	}
 

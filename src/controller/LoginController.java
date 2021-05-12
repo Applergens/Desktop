@@ -18,14 +18,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.Restaurant;
 import util.AuthCredentials;
 import util.JsonUtils;
+import util.ObjectUtils;
 import util.RequestUtils;
 
 public class LoginController {
@@ -54,34 +57,37 @@ public class LoginController {
     @FXML
     public void login(ActionEvent event) throws IOException, InterruptedException {
     	
-    	Boolean login;
-    	
-//    	AuthCredentials authCredentials = new AuthCredentials(fieldCode.getText(), fieldPassword.getText());
-//    	
-//    	String requestBody = new Gson().toJson(authCredentials);
-//    	
-//    	String responseBody = RequestUtils.httpPostRequest(endPoint, requestBody);
-//    	
-//    	if (responseBody == "Invalid") {
-//    		
-//    		login = false;
-//    		
-//    	} else {
-//        	
-//        	Restaurant rest = new Gson().fromJson(responseBody, Restaurant.class);
-//    		
-//    		login = true;
-//    	}
-    	
-    	login = true;
-        	
-    	if (login) {
-    		    		
-    		changeScene("MenuView.fxml");
+    	if (fieldCode.getText().equalsIgnoreCase("") || fieldPassword.getText().equalsIgnoreCase("")) {
+    		
+    		Alert alert = new Alert(AlertType.ERROR, "There are empty fields");
     		
     	} else {
     		
-    		System.out.println("Login failed");
+    		AuthCredentials authCredentials = new AuthCredentials(fieldCode.getText(), fieldPassword.getText());
+        	
+        	String requestBody = new Gson().toJson(authCredentials);
+        	
+        	String responseBody = RequestUtils.httpPostRequest(endPoint, requestBody);
+        	
+        	if (responseBody == "Invalid") {
+        		
+        		Alert alert = new Alert(AlertType.ERROR, "Invalid credentials");
+        		
+        		alert.show();
+        		
+        	} else {
+        		
+        		ObjectUtils.generateAllergens();
+        		ObjectUtils.generateIngredients();
+        		
+        		ObjectUtils.createRestaurant(responseBody);
+        		
+        		System.out.println("Mi restaurante = " + Main.restaurant.getName());
+        		
+        		changeScene("MenuView.fxml");
+        		
+        	
+        	}
     		
     	}
 
