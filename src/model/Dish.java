@@ -39,6 +39,11 @@ public class Dish {
 		ingredients.remove(ingredient);
 		
 	}
+
+	@Override
+	public String toString() {
+		return  name;
+	}
 	
 
 }

@@ -18,7 +18,7 @@
          <graphic>
             <AnchorPane prefHeight="53.0" prefWidth="565.0">
                <children>
-                  <Button fx:id="btnExit" mnemonicParsing="false" onAction="#exit" text="Button" />
+                  <Button fx:id="btnExit" mnemonicParsing="false" onAction="#exit" text="X" />
                </children>
             </AnchorPane>
          </graphic>
@@ -28,7 +28,6 @@
       <GridPane BorderPane.alignment="TOP_CENTER">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
@@ -36,12 +35,18 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btn1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Button" />
-            <Button fx:id="btn2" mnemonicParsing="false" text="Button" GridPane.rowIndex="1" />
-            <Button fx:id="btn3" mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="btn4" mnemonicParsing="false" text="Button" GridPane.rowIndex="2" />
-            <Button fx:id="btn5" mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="btn6" mnemonicParsing="false" text="Button" GridPane.columnIndex="1" />
+            <Button fx:id="btn1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#manageDishes" prefHeight="136.0" prefWidth="632.0" text="Gestionar Platos">
+               <font>
+                  <Font size="32.0" />
+               </font></Button>
+            <Button fx:id="btn2" mnemonicParsing="false" prefHeight="137.0" prefWidth="633.0" text="Consultar Ingredientes" GridPane.rowIndex="1">
+               <font>
+                  <Font size="32.0" />
+               </font></Button>
+            <Button fx:id="btn4" mnemonicParsing="false" prefHeight="135.0" prefWidth="635.0" text="Perfil" GridPane.rowIndex="2">
+               <font>
+                  <Font size="32.0" />
+               </font></Button>
          </children>
       </GridPane>
    </center>

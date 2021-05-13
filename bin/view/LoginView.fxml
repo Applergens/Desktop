@@ -22,13 +22,13 @@
                <font>
                   <Font name="Arial Bold" size="13.0" />
                </font></TextField>
-            <Button fx:id="btnLogin" layoutX="154.0" layoutY="434.0" mnemonicParsing="false" onAction="#login" prefHeight="39.0" prefWidth="92.0" style="-fx-background-color: #ff464e; -fx-border-radius: 0;" text="Login" textFill="WHITE">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font></Button>
             <Button fx:id="btnExit" layoutX="327.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="44.0" style="-fx-background-color: transparent;" text="X" textFill="#ff464e">
                <font>
                   <Font name="System Bold" size="25.0" />
+               </font></Button>
+            <Button fx:id="btnLogin" layoutX="154.0" layoutY="434.0" mnemonicParsing="false" onAction="#login" prefHeight="39.0" prefWidth="92.0" style="-fx-background-color: #ff464e; -fx-border-radius: 0;" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
                </font></Button>
          </children>
       </AnchorPane>

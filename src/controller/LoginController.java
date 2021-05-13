@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 
 import application.Main;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,8 +24,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Restaurant;
 import util.AuthCredentials;
 import util.JsonUtils;
@@ -34,6 +37,9 @@ import util.RequestUtils;
 public class LoginController {
 	
 	static String endPoint = "/login/restaurant";
+	
+	double xOffset = 0;
+	double yOffset = 0;
 
     @FXML
     private PasswordField fieldPassword;
@@ -100,6 +106,30 @@ public class LoginController {
 		Parent root = FXMLLoader.load(LoginController.class.getResource("../view/" + nextScene));
 		
 		Scene scene = new Scene(root);
+		
+		stage.initStyle(StageStyle.DECORATED.UNDECORATED);
+
+		root.setOnMousePressed(new EventHandler<MouseEvent>()  {
+
+			@Override
+			public void handle(MouseEvent event) {
+
+				xOffset = event.getSceneX();
+				yOffset = event.getSceneY();
+				
+			}
+		});
+		
+		root.setOnMouseDragged(new EventHandler<MouseEvent>()  {
+
+			@Override
+			public void handle(MouseEvent event) {
+
+				stage.setX(event.getScreenX() - xOffset);
+				stage.setY(event.getScreenY() - yOffset);
+				
+			}
+		});
 	
 		stage.setScene(scene);
 		stage.show();
