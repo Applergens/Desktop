@@ -43,7 +43,7 @@
                <font>
                   <Font size="32.0" />
                </font></Button>
-            <Button fx:id="btn4" mnemonicParsing="false" prefHeight="135.0" prefWidth="635.0" text="Perfil" GridPane.rowIndex="2">
+            <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#profile" prefHeight="135.0" prefWidth="635.0" text="Perfil" GridPane.rowIndex="2">
                <font>
                   <Font size="32.0" />
                </font></Button>

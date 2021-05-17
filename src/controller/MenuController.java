@@ -36,7 +36,7 @@ public class MenuController  implements Initializable{
     private Button btn1;
 
     @FXML
-    private Button btn4;
+    private Button profileBtn;
 
     @FXML
     void exit(ActionEvent event) throws IOException {
@@ -119,9 +119,7 @@ public class MenuController  implements Initializable{
     
     @FXML
     void manageDishes() throws IOException {
-    	
     	changeScene("ManageView.fxml");
-    
     }
     
     @FXML
@@ -129,12 +127,14 @@ public class MenuController  implements Initializable{
     	changeScene("ConsultDishesView.fxml");
     }
     
+    @FXML
+    void profile(ActionEvent event) throws IOException{
+    	changeScene("ProfileView.fxml");
+    }
+    
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		
-		
 	}
 
 }
