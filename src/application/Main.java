@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 import model.Allergen;
 import model.Ingredient;
 import model.Restaurant;

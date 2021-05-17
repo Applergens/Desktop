@@ -3,26 +3,35 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Dish;
+import model.Ingredient;
 
 public class ManageController implements Initializable{
 	
 	double xOffset = 0;
 	double yOffset = 0;
+	
+	@FXML
+    private Button btnExit;
 
     @FXML
     private Button editDish;
@@ -31,14 +40,15 @@ public class ManageController implements Initializable{
     private Button createDish;
 
     @FXML
-    private Button deleteDish;
+    private Button deleteDishBtn;
     
     @FXML
     private ListView<Dish> dishList;
     
-    Main main = new Main();
+
+    public static Dish editableDish;
     
-    ArrayList<Dish> dishes = main.restaurant.getDishes();
+    ArrayList<Dish> dishes = Main.restaurant.getDishes();
     
     Dish dish;
 
@@ -56,19 +66,9 @@ public class ManageController implements Initializable{
 	void changeScene(String nextScene) throws IOException {
     	
     	Stage stage = new Stage();
-    	System.out.println("1111111111111");
-    	FXMLLoader loader = FXMLLoader.load(EditController.class.getResource("../view/" + nextScene));
-    	System.out.println("2222222222222");
-		EditController controller = new EditController();
-	    controller.setDish(dish);
-    	System.out.println("3333333333333");
-
-	    loader.setController(controller);
-    	System.out.println("44444444444444444");
-
-	    Parent root = loader.load();
-    	System.out.println("5555555555555555");
-
+    	
+    	Parent root = FXMLLoader.load(EditController.class.getResource("../view/" + nextScene));
+    	
 		stage.initStyle(StageStyle.UNDECORATED);
 
 		root.setOnMousePressed(new EventHandler<MouseEvent>()  {
@@ -104,9 +104,76 @@ public class ManageController implements Initializable{
 	void edit() throws IOException {
 		
 		int selectedDish = dishList.getSelectionModel().getSelectedIndex();
-		dish = dishes.get(selectedDish);
+		editableDish = dishes.get(selectedDish);
 		
 		changeScene("EditView.fxml");
 	}
+	
+	@FXML
+	void create() throws IOException {
+		changeScene("CreateView.fxml");
+	}
+	
+	@FXML
+	void deleteDish() throws IOException{
+		
+		int selectedDish = dishList.getSelectionModel().getSelectedIndex();
+		
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setHeaderText(null);
+		alert.setTitle("Confirmación");
+		alert.setContentText("¿Seguro que quieres eliminar el plato?");
+		Optional<ButtonType> action = alert.showAndWait();
+		
+		if(action.get() == ButtonType.OK) {
+			Dish dishToDelete = dishList.getItems().get(selectedDish);
+			dishList.getItems().remove(selectedDish);
+			dishes.remove(selectedDish);
+			// Llamada a la api para eliminar plato
+		} else {
+			alert = new Alert(AlertType.ERROR, "Plato no eliminado");
+			alert.show();
+		}
+	}
+	
+	@FXML
+    void exit(ActionEvent event) throws IOException {
+    	
+    	Stage stage = new Stage();
+    	
+    	Parent root = FXMLLoader.load(Main.class.getResource("../view/MenuView.fxml"));
+		
+		Scene scene = new Scene(root);
+		
+		stage.initStyle(StageStyle.UNDECORATED);
+
+		root.setOnMousePressed(new EventHandler<MouseEvent>()  {
+
+			@Override
+			public void handle(MouseEvent event) {
+
+				xOffset = event.getSceneX();
+				yOffset = event.getSceneY();
+				
+			}
+		});
+		
+		root.setOnMouseDragged(new EventHandler<MouseEvent>()  {
+
+			@Override
+			public void handle(MouseEvent event) {
+
+				stage.setX(event.getScreenX() - xOffset);
+				stage.setY(event.getScreenY() - yOffset);
+				
+			}
+		});
+		
+		stage.setScene(scene);
+		stage.show();
+		
+		editDish.getScene().getWindow().hide();
+
+    }
     
 }

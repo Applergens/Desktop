@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageController">
    <top>
       <Label prefHeight="53.0" prefWidth="757.0" text="Gestionar Platos" BorderPane.alignment="CENTER">
@@ -17,7 +16,7 @@
          <graphic>
             <AnchorPane prefHeight="53.0" prefWidth="454.0">
                <children>
-                  <Button layoutX="-2.0" layoutY="-2.0" mnemonicParsing="false" text="X" />
+                  <Button fx:id="btnExit" layoutX="-2.0" layoutY="-2.0" mnemonicParsing="false" onAction="#exit" text="X" />
                   <Label layoutX="243.0" layoutY="30.0" text="NOMBRE DEL PLATO" />
                </children>
             </AnchorPane>
@@ -28,8 +27,8 @@
       <AnchorPane prefHeight="54.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="editDish" layoutX="116.0" layoutY="14.0" mnemonicParsing="false" onAction="#edit" text="Editar Plato" />
-            <Button fx:id="createDish" layoutX="410.0" layoutY="14.0" mnemonicParsing="false" text="Crear Plato" />
-            <Button fx:id="deleteDish" layoutX="256.0" layoutY="14.0" mnemonicParsing="false" text="Eliminar Plato" />
+            <Button fx:id="createDish" layoutX="410.0" layoutY="14.0" mnemonicParsing="false" onAction="#create" text="Crear Plato" />
+            <Button fx:id="deleteDishBtn" layoutX="256.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteDish" text="Eliminar Plato" />
          </children>
       </AnchorPane>
    </bottom>

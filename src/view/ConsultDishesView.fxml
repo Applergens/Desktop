@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConsultDishesController">
+   <top>
+      <Label text="Consultar Platos" BorderPane.alignment="CENTER">
+         <graphic>
+            <AnchorPane prefHeight="58.0" prefWidth="461.0">
+               <children>
+                  <Button fx:id="exitBtn" layoutX="-4.0" layoutY="-1.0" mnemonicParsing="false" onAction="#exit" text="X" />
+               </children>
+            </AnchorPane>
+         </graphic>
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="ingInfoTable" layoutX="48.0" layoutY="25.0" prefHeight="271.0" prefWidth="516.0">
+              <columns>
+                <TableColumn fx:id="ingColumn" minWidth="15.0" prefWidth="252.79998779296875" text="INGREDIENTES" />
+                <TableColumn fx:id="allergenColumn" minWidth="15.0" prefWidth="264.0" text="ALÉRGENOS" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

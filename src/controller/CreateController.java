@@ -23,58 +23,44 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Allergen;
 import model.Ingredient;
 
-public class EditController implements Initializable{
+public class CreateController implements Initializable{
 	
 	double xOffset = 0;
 	double yOffset = 0;
 	
 	@FXML
-    private Button btnExit;
+    private TextField dishNameTxtFld;
+
+	@FXML
+    private ListView<Ingredient> allIngredientLV;
 
     @FXML
-    private TextField dishNameTxtField;
+    private ListView<Ingredient> addIngredientLV;
+    @FXML
+    private Button exitBtn;
 
     @FXML
-    private ListView<Ingredient> allIngredientsLV;
+    private Button addIngBtn;
+    
+    @FXML
+    private Button quitIngBtn;
 
     @FXML
-    private ListView<Ingredient> dishIngredientsLV;
+    private Button quitAllBtn;
 
     @FXML
-    private Button quitAllIngredientsBtn;
-
-    @FXML
-    private Button quitIngredientBtn;
-
-    @FXML
-    private Button addIngredientBtn;
-
-    @FXML
-    private Button saveDish;
-
+    private Button saveDishBtn;
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		ArrayList<Ingredient> ingredientsDish = ManageController.editableDish.getIngredients();
-		
-		dishNameTxtField.setText(ManageController.editableDish.getName());
 
+		ArrayList<Ingredient> ingredientList = Main.ingredientList;
 		
-		for (Ingredient ing : Main.ingredientList) {
-			
-			allIngredientsLV.getItems().add(ing);
-			
-			for (Ingredient ingDish : ingredientsDish) {
-				
-				if(ing.getName().equals(ingDish.getName())) {
-					
-					allIngredientsLV.getItems().remove(ing);
-					dishIngredientsLV.getItems().add(ingDish);
-					
-				}
-			}
+		for (Ingredient ingredient : ingredientList) {
+			allIngredientLV.getItems().add(ingredient);
 		}
 		
 	}
@@ -82,27 +68,27 @@ public class EditController implements Initializable{
 	@FXML
 	void addIng() throws IOException{
 		
-		int selectedIng = allIngredientsLV.getSelectionModel().getSelectedIndex();
+		int selectedIng = allIngredientLV.getSelectionModel().getSelectedIndex();
 		
 		if(selectedIng == -1) {
 			Alert alert = new Alert(AlertType.ERROR, "No se ha seleccionado ningun ingrediente!");
 			alert.show();
 		} else {
-			Ingredient ingredient = allIngredientsLV.getItems().get(selectedIng);
-			allIngredientsLV.getItems().remove(selectedIng);
-			dishIngredientsLV.getItems().add(ingredient);
+			Ingredient ingredient = allIngredientLV.getItems().get(selectedIng);
+			allIngredientLV.getItems().remove(selectedIng);
+			addIngredientLV.getItems().add(ingredient);
 		}
 		
 	}
 	
 	@FXML
 	void quitIng() throws IOException{
-		int selectedIng = dishIngredientsLV.getSelectionModel().getSelectedIndex();
+		int selectedIng = addIngredientLV.getSelectionModel().getSelectedIndex();
 		
 		if(selectedIng != -1) {
-			Ingredient ingredient = dishIngredientsLV.getItems().get(selectedIng);
-			dishIngredientsLV.getItems().remove(selectedIng);
-			allIngredientsLV.getItems().add(ingredient);
+			Ingredient ingredient = addIngredientLV.getItems().get(selectedIng);
+			addIngredientLV.getItems().remove(selectedIng);
+			allIngredientLV.getItems().add(ingredient);
 		} else {
 			Alert alert = new Alert(AlertType.ERROR, "No se ha seleccionado ningun ingrediente!");
 			alert.show();
@@ -119,10 +105,10 @@ public class EditController implements Initializable{
 		Optional<ButtonType> action = alert.showAndWait();
 		
 		if(action.get() == ButtonType.OK) {
-			for (int i = dishIngredientsLV.getItems().size()-1; i >= 0; i--) { 
-				Ingredient ingredient = dishIngredientsLV.getItems().get(i);
-				dishIngredientsLV.getItems().remove(i);
-				allIngredientsLV.getItems().add(ingredient);
+			for (int i = addIngredientLV.getItems().size()-1; i >= 0; i--) { 
+				Ingredient ingredient = addIngredientLV.getItems().get(i);
+				addIngredientLV.getItems().remove(i);
+				allIngredientLV.getItems().add(ingredient);
 			}
 		} else {
 			alert = new Alert(AlertType.ERROR, "Ingredientes no movidos");
@@ -131,6 +117,26 @@ public class EditController implements Initializable{
 		
 	}
 	
+	@FXML
+    void saveDish(ActionEvent event) {
+
+		boolean save = checkDish();
+		if (!save) {
+			Alert alert = new Alert(AlertType.ERROR, "Rellenar campos nombre y ingrediente obligatoriamente");
+			alert.show();
+		} else {
+			// AÑADIR ACCION DE GUARDAR PLATO
+		}
+    }
+	
+	boolean checkDish() {
+		if (dishNameTxtFld.getText().equals("") || addIngredientLV.getItems().size() == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	@FXML
     void exit(ActionEvent event) throws IOException {
     	
@@ -167,8 +173,8 @@ public class EditController implements Initializable{
 		stage.setScene(scene);
 		stage.show();
 		
-		addIngredientBtn.getScene().getWindow().hide();
+		dishNameTxtFld.getScene().getWindow().hide();
 
     }
-
+	
 }

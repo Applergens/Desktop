@@ -2,12 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.lang.reflect.Type;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import application.Main;
 import javafx.event.ActionEvent;
@@ -22,9 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.Allergen;
-import model.Ingredient;
-import util.RequestUtils;
 
 public class MenuController  implements Initializable{
 	
@@ -38,10 +30,10 @@ public class MenuController  implements Initializable{
     private Button btnExit;
 
     @FXML
-    private Button btn1;
+    private Button consultDishesBtn;
 
     @FXML
-    private Button btn2;
+    private Button btn1;
 
     @FXML
     private Button btn4;
@@ -94,7 +86,7 @@ public class MenuController  implements Initializable{
 		
 		Scene scene = new Scene(root);
 		
-		stage.initStyle(StageStyle.DECORATED.UNDECORATED);
+		stage.initStyle(StageStyle.UNDECORATED);
 
 		root.setOnMousePressed(new EventHandler<MouseEvent>()  {
 
@@ -120,6 +112,8 @@ public class MenuController  implements Initializable{
 	
 		stage.setScene(scene);
 		stage.show();
+		
+		btnExit.getScene().getWindow().hide();
     	
     }
     
@@ -128,6 +122,11 @@ public class MenuController  implements Initializable{
     	
     	changeScene("ManageView.fxml");
     
+    }
+    
+    @FXML
+    void consultDishes(ActionEvent event) throws IOException{
+    	changeScene("ConsultDishesView.fxml");
     }
     
 

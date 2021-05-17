@@ -9,14 +9,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditController">
    <top>
       <Label prefHeight="47.0" prefWidth="600.0" text="Editar Plato" BorderPane.alignment="CENTER">
          <graphic>
             <AnchorPane prefHeight="68.0" prefWidth="490.0">
                <children>
-                  <Button layoutX="-2.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="25.0" text="X" />
+                  <Button fx:id="btnExit" layoutX="-2.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" prefHeight="30.0" prefWidth="25.0" text="X" />
                </children>
             </AnchorPane>
          </graphic>
@@ -33,12 +32,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="dishNameTxrField" layoutX="147.0" layoutY="14.0" prefHeight="32.0" prefWidth="398.0" />
+            <TextField fx:id="dishNameTxtField" layoutX="147.0" layoutY="14.0" prefHeight="32.0" prefWidth="398.0" />
             <ListView fx:id="allIngredientsLV" layoutX="55.0" layoutY="61.0" prefHeight="226.0" prefWidth="200.0" />
             <ListView fx:id="dishIngredientsLV" layoutX="344.0" layoutY="61.0" prefHeight="226.0" prefWidth="200.0" />
-            <Button fx:id="quitAllIngredientsBtn" layoutX="272.0" layoutY="201.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="&lt;&lt;" />
-            <Button fx:id="quitIngredientBtn" layoutX="272.0" layoutY="149.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="&lt;" />
-            <Button fx:id="addIngredientBtn" layoutX="272.0" layoutY="99.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="&gt;" />
+            <Button fx:id="quitAllIngredientsBtn" layoutX="272.0" layoutY="201.0" mnemonicParsing="false" onAction="#quitAllIng" prefHeight="25.0" prefWidth="50.0" text="&lt;&lt;" />
+            <Button fx:id="quitIngredientBtn" layoutX="272.0" layoutY="149.0" mnemonicParsing="false" onAction="#quitIng" prefHeight="25.0" prefWidth="50.0" text="&lt;" />
+            <Button fx:id="addIngredientBtn" layoutX="272.0" layoutY="99.0" mnemonicParsing="false" onAction="#addIng" prefHeight="25.0" prefWidth="50.0" text="&gt;" />
             <Button fx:id="saveDish" layoutX="230.0" layoutY="298.0" mnemonicParsing="false" text="Guardar Plato">
                <font>
                   <Font size="18.0" />

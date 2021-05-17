@@ -24,5 +24,12 @@ public class Ingredient {
 	public Allergen getAllergen() {
 		return allergen;
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+	
+	
 	
 }
