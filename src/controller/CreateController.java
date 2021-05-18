@@ -24,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Allergen;
+import model.Dish;
 import model.Ingredient;
 
 public class CreateController implements Initializable{
@@ -56,10 +57,8 @@ public class CreateController implements Initializable{
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
-		ArrayList<Ingredient> ingredientList = Main.ingredientList;
 		
-		for (Ingredient ingredient : ingredientList) {
+		for (Ingredient ingredient :  Main.ingredientList) {
 			allIngredientLV.getItems().add(ingredient);
 		}
 		
@@ -125,7 +124,19 @@ public class CreateController implements Initializable{
 			Alert alert = new Alert(AlertType.ERROR, "Rellenar campos nombre y ingrediente obligatoriamente");
 			alert.show();
 		} else {
-			// AÑADIR ACCION DE GUARDAR PLATO
+			
+			Dish d = new Dish(dishNameTxtFld.getText());
+			
+			for (Ingredient ingr : addIngredientLV.getItems()) {
+				
+				d.addIngredient(ingr);
+				
+			}
+			
+			Main.restaurant.addDish(d);
+			
+			Alert alert = new Alert(AlertType.INFORMATION, "Plato guardado correctamente");
+			
 		}
     }
 	

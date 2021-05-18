@@ -25,6 +25,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Dish;
+import util.JsonUtils;
+import util.RequestUtils;
 
 public class ProfileController implements Initializable{
 	
@@ -69,6 +71,8 @@ public class ProfileController implements Initializable{
 
     @FXML
     private PasswordField passFld2;
+    
+    boolean isChanging = false;
     
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -117,7 +121,11 @@ public class ProfileController implements Initializable{
     		Alert alert = new Alert(AlertType.ERROR, "Campo de la dirección vacio!");
     		alert.show();
     	} else {
-    		// Llamada a api
+    		
+    		Main.restaurant.setAddress(addressTxtArea.getText());
+    		
+    		isChanging = true;
+    		
     	}
     	
     }
@@ -131,7 +139,11 @@ public class ProfileController implements Initializable{
     		Alert alert = new Alert(AlertType.ERROR, "Campo del telefono vacio!");
     		alert.show();
     	} else {
-    		// Llamada a api
+    		
+    		Main.restaurant.setPhone(phoneTxtFld.getText());
+    		
+    		isChanging = true;
+    		
     	}
     }
     
@@ -156,13 +168,17 @@ public class ProfileController implements Initializable{
     	if(passFld1.getText().equals("") || passFld2.getText().equals("") || !passFld1.getText().equals(passFld2.getText())) {
     		System.out.println("SoMETHING WRONG");
     	} else {
-    		System.out.println("ACEPTADO");
+    		
+    		isChanging = true;
+    		
     		disableChangePass();
     	}	
     }
 
     @FXML
-    void exit(ActionEvent event) throws IOException {
+    void exit(ActionEvent event) throws IOException, InterruptedException {
+    	
+    	RequestUtils.httpPostRequest("/restaurants/updateData", JsonUtils.jsonUpdateRestaurantData());
     	
     	Stage stage = new Stage();
     	

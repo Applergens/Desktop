@@ -76,11 +76,15 @@ public class ObjectUtils {
 	
 	public static Allergen getAllergenByID(String objectId) {
 		
-		for (Allergen allergen : Main.allergenList) {
+		if (!objectId.equals("")) {
 			
-			if (allergen.getId().equals(objectId)) {
+			for (Allergen allergen : Main.allergenList) {
 				
-				return allergen;
+				if (allergen.getId().equals(objectId)) {
+					
+					return allergen;
+					
+				}
 				
 			}
 			
@@ -101,6 +105,9 @@ public class ObjectUtils {
 		String address = jsonObject.get("address").getAsString();
 		String name = jsonObject.get("name").getAsString();
 		String password = jsonObject.get("password").getAsString();
+		
+		System.out.println("Password = " + password);
+		
 		String phone = jsonObject.get("phone").getAsString();
 		int code = jsonObject.get("code").getAsInt();
 		

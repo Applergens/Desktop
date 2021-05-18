@@ -73,4 +73,10 @@ public class Restaurant {
 		
 	}
 	
+	public void removeDish(Dish dish) {
+		
+		dishes.add(dish);
+		
+	}
+	
 }

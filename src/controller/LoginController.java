@@ -30,7 +30,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Restaurant;
 import util.AuthCredentials;
-import util.JsonUtils;
 import util.ObjectUtils;
 import util.RequestUtils;
 

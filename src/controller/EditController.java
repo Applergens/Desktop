@@ -55,8 +55,6 @@ public class EditController implements Initializable{
 
     @FXML
     private Button saveDish;
-    
-    private Dish editedDish;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -64,7 +62,6 @@ public class EditController implements Initializable{
 		ArrayList<Ingredient> ingredientsDish = ManageController.editableDish.getIngredients();
 		
 		dishNameTxtField.setText(ManageController.editableDish.getName());
-
 		
 		for (Ingredient ing : Main.ingredientList) {
 			
@@ -138,17 +135,25 @@ public class EditController implements Initializable{
 	@FXML
 	void saveDish() throws IOException{
 		
+		Dish d;
+		
 		if(dishIngredientsLV.getItems().size() != 0 && !dishNameTxtField.getText().equals("")) {
 			
-			Dish newDish = new Dish(dishNameTxtField.getText());
+			d = new Dish(dishNameTxtField.getText());
 			
-			ArrayList<Ingredient> newIng = new ArrayList<Ingredient>();
-			
-			for(int i = 0; i<dishIngredientsLV.getItems().size();i++) {
-				newIng.add(dishIngredientsLV.getItems().get(i));
+			for (Ingredient i : dishIngredientsLV.getItems()) {
+				
+				d.addIngredient(i);
+				
 			}
 			
-			newDish.setIngredients(newIng);
+			Main.restaurant.addDish(d);
+			
+			Main.restaurant.removeDish(ManageController.editableDish);
+			
+			Alert alert = new Alert(AlertType.INFORMATION, "Plato editado correctamente");
+			
+			alert.showAndWait();
 			
 			// Aqui hay que hacer dos llamadas a la api, deleteDish (eliminar el editableDish de la clase ManageController) y 			createDish para crear el nuevo plato editado
 			// También habria que mostrar mensaje de confirmación y cerrar ventana/vaciar campos
