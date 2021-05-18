@@ -98,15 +98,22 @@ public class ManageController implements Initializable{
 		stage.setScene(scene);
 		stage.show();
     	
+		btnExit.getScene().getWindow().hide();
     }
 	
 	@FXML
 	void edit() throws IOException {
 		
-		int selectedDish = dishList.getSelectionModel().getSelectedIndex();
-		editableDish = dishes.get(selectedDish);
+		Alert alert;
 		
-		changeScene("EditView.fxml");
+		if(dishList.getSelectionModel().getSelectedIndex() == -1) {
+			alert = new Alert(AlertType.ERROR, "No se ha seleccionado ningun plato");
+		} else {
+			int selectedDish = dishList.getSelectionModel().getSelectedIndex();
+			editableDish = dishes.get(selectedDish);
+			
+			changeScene("EditView.fxml");
+		}
 	}
 	
 	@FXML
@@ -117,22 +124,28 @@ public class ManageController implements Initializable{
 	@FXML
 	void deleteDish() throws IOException{
 		
-		int selectedDish = dishList.getSelectionModel().getSelectedIndex();
+		Alert alert;
 		
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setHeaderText(null);
-		alert.setTitle("Confirmación");
-		alert.setContentText("¿Seguro que quieres eliminar el plato?");
-		Optional<ButtonType> action = alert.showAndWait();
-		
-		if(action.get() == ButtonType.OK) {
-			Dish dishToDelete = dishList.getItems().get(selectedDish);
-			dishList.getItems().remove(selectedDish);
-			dishes.remove(selectedDish);
-			// Llamada a la api para eliminar plato
+		if(dishList.getSelectionModel().getSelectedIndex() == -1) {
+			alert = new Alert(AlertType.ERROR, "No se ha seleccionado ningun plato");
 		} else {
-			alert = new Alert(AlertType.ERROR, "Plato no eliminado");
-			alert.show();
+			int selectedDish = dishList.getSelectionModel().getSelectedIndex();
+			
+			alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setHeaderText(null);
+			alert.setTitle("Confirmación");
+			alert.setContentText("¿Seguro que quieres eliminar el plato?");
+			Optional<ButtonType> action = alert.showAndWait();
+			
+			if(action.get() == ButtonType.OK) {
+				Dish dishToDelete = dishList.getItems().get(selectedDish);
+				dishList.getItems().remove(selectedDish);
+				dishes.remove(selectedDish);
+				// Llamada a la api para eliminar plato
+			} else {
+				alert = new Alert(AlertType.ERROR, "Plato no eliminado");
+				alert.show();
+			}
 		}
 	}
 	

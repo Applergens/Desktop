@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -23,6 +24,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Dish;
 import model.Ingredient;
 
 public class EditController implements Initializable{
@@ -53,6 +55,8 @@ public class EditController implements Initializable{
 
     @FXML
     private Button saveDish;
+    
+    private Dish editedDish;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -128,6 +132,32 @@ public class EditController implements Initializable{
 			alert = new Alert(AlertType.ERROR, "Ingredientes no movidos");
 			alert.show();
 		}
+		
+	}
+	
+	@FXML
+	void saveDish() throws IOException{
+		
+		if(dishIngredientsLV.getItems().size() != 0 && !dishNameTxtField.getText().equals("")) {
+			
+			Dish newDish = new Dish(dishNameTxtField.getText());
+			
+			ArrayList<Ingredient> newIng = new ArrayList<Ingredient>();
+			
+			for(int i = 0; i<dishIngredientsLV.getItems().size();i++) {
+				newIng.add(dishIngredientsLV.getItems().get(i));
+			}
+			
+			newDish.setIngredients(newIng);
+			
+			// Aqui hay que hacer dos llamadas a la api, deleteDish (eliminar el editableDish de la clase ManageController) y 			createDish para crear el nuevo plato editado
+			// También habria que mostrar mensaje de confirmación y cerrar ventana/vaciar campos
+			
+		} else {
+			Alert alert = new Alert(AlertType.ERROR, "Introducir nombre y ingredientes");
+			alert.show();
+		}
+		
 		
 	}
 	

@@ -38,7 +38,7 @@
             <Button fx:id="quitAllIngredientsBtn" layoutX="272.0" layoutY="201.0" mnemonicParsing="false" onAction="#quitAllIng" prefHeight="25.0" prefWidth="50.0" text="&lt;&lt;" />
             <Button fx:id="quitIngredientBtn" layoutX="272.0" layoutY="149.0" mnemonicParsing="false" onAction="#quitIng" prefHeight="25.0" prefWidth="50.0" text="&lt;" />
             <Button fx:id="addIngredientBtn" layoutX="272.0" layoutY="99.0" mnemonicParsing="false" onAction="#addIng" prefHeight="25.0" prefWidth="50.0" text="&gt;" />
-            <Button fx:id="saveDish" layoutX="230.0" layoutY="298.0" mnemonicParsing="false" text="Guardar Plato">
+            <Button fx:id="saveDish" layoutX="230.0" layoutY="298.0" mnemonicParsing="false" onAction="#saveDish" text="Guardar Plato">
                <font>
                   <Font size="18.0" />
                </font>
