@@ -173,7 +173,9 @@ public class ProfileController implements Initializable{
     	
     	if(passFld1.getText().equals("") || passFld2.getText().equals("") || !passFld1.getText().equals(passFld2.getText())) {
     		
-    		System.out.println("SoMETHING WRONG");
+    		Alert alert = new Alert(AlertType.CONFIRMATION, "Asegurate de introducir 2 contraseñas iguales");
+    		
+    		alert.showAndWait();
     		
     	} else {
     		
@@ -194,7 +196,11 @@ public class ProfileController implements Initializable{
     @FXML
     void exit(ActionEvent event) throws IOException, InterruptedException {
     	
-    	RequestUtils.httpPostRequest("/restaurants/updateData", JsonUtils.updateRestaurantData());
+    	if (isChanging) {
+    		
+    		RequestUtils.httpPostRequest("/restaurants/updateData", JsonUtils.updateRestaurantData());
+    		
+    	}    	
     	
     	Stage stage = new Stage();
     	

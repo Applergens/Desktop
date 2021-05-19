@@ -135,17 +135,29 @@ public class CreateController implements Initializable{
 				
 			}
 			
-			Main.restaurant.addDish(d);
-			
 			String requestBody = JsonUtils.createDishData(d);
 			
-			RequestUtils.httpPostRequest("/restaurants/createDish", requestBody);
+			String responseBody = RequestUtils.httpPostRequest("/restaurants/createDish", requestBody);
 			
-			Alert alert = new Alert(AlertType.INFORMATION, "Plato guardado correctamente");
+			Alert alert;
 			
-			alert.showAndWait();
-			
-			exitBtn.fire();
+			if (responseBody == "Invalid") {
+				
+				alert = new Alert(AlertType.INFORMATION, "Ya existe un plato con ese nombre");
+				
+				alert.showAndWait();
+				
+			} else {
+				
+				Main.restaurant.addDish(d);
+				
+				alert = new Alert(AlertType.INFORMATION, "Plato guardado correctamente");
+				
+				alert.showAndWait();
+				
+				exitBtn.fire();
+				
+			}			
 			
 		}
     }

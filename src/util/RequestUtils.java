@@ -15,7 +15,7 @@ public class RequestUtils {
 	
 	public static String httpPostRequest(String endPoint, String jsonData) throws IOException, InterruptedException {
 		
-		URI uri = URI.create(apiLocal + endPoint);
+		URI uri = URI.create(api + endPoint);
 		
 		HttpClient client = HttpClient.newHttpClient();
 		
@@ -26,8 +26,6 @@ public class RequestUtils {
 				.build();
 		
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-		
-		System.out.println(response.body());
 		
 		if (response.statusCode() == 200) {
 			

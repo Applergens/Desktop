@@ -106,8 +106,6 @@ public class ObjectUtils {
 		String name = jsonObject.get("name").getAsString();
 		String password = jsonObject.get("password").getAsString();
 		
-		System.out.println("Password = " + password);
-		
 		String phone = jsonObject.get("phone").getAsString();
 		int code = jsonObject.get("code").getAsInt();
 		

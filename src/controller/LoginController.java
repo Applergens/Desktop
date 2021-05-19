@@ -9,6 +9,7 @@ import java.net.URI;
 import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.util.ResourceBundle;
 
 import com.google.gson.Gson;
 
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -33,7 +35,7 @@ import util.AuthCredentials;
 import util.ObjectUtils;
 import util.RequestUtils;
 
-public class LoginController {
+public class LoginController implements Initializable {
 	
 	static String endPoint = "/login/restaurant";
 	
@@ -59,12 +61,21 @@ public class LoginController {
 
     }
     
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+    	
+    	Main.resetData();
+    			
+	}
+    
     @FXML
     public void login(ActionEvent event) throws IOException, InterruptedException {
     	
     	if (fieldCode.getText().equalsIgnoreCase("") || fieldPassword.getText().equalsIgnoreCase("")) {
     		
     		Alert alert = new Alert(AlertType.ERROR, "There are empty fields");
+    		
+    		alert.showAndWait();
     		
     	} else {
     		
@@ -84,10 +95,7 @@ public class LoginController {
         		
         		ObjectUtils.generateAllergens();
         		ObjectUtils.generateIngredients();
-        		
         		ObjectUtils.createRestaurant(responseBody);
-        		
-        		System.out.println("Mi restaurante = " + Main.restaurant.getName());
         		
         		changeScene("MenuView.fxml");
         		

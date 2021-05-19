@@ -34,7 +34,6 @@ public class Main extends Application {
 
 		try {
 			
-			initializeStructures();
 			launchLogin();
 			
 		} catch (IOException e) {
@@ -47,13 +46,6 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		
 		launch(args);
-		
-	}
-	
-	private void initializeStructures() {
-
-		allergenList = new ArrayList<Allergen>();
-		ingredientList = new ArrayList<Ingredient>();
 		
 	}
 	
@@ -89,6 +81,13 @@ public class Main extends Application {
 
 		stage.setScene(scene);
 		stage.show();
+		
+	}
+	
+	public static void resetData() {
+		
+		allergenList = new ArrayList<Allergen>();
+		ingredientList = new ArrayList<Ingredient>();
 		
 	}
 }

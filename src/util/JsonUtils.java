@@ -14,18 +14,12 @@ public class JsonUtils {
 		
 		JsonObject data = new JsonObject();
 		
-		System.out.println("Rest pass = " + Main.restaurant.getPassword());
-		
 		data.addProperty("code", Main.restaurant.getCode());
 		data.addProperty("password", Main.restaurant.getPassword());
 		data.addProperty("phone", Main.restaurant.getPhone());
 		data.addProperty("address", Main.restaurant.getAddress());
 		
 		String jsonString = new Gson().toJson(data);
-		
-		System.out.println(jsonString);
-		
-		System.out.println(jsonString);
 		
 		return jsonString;
 		
@@ -54,8 +48,6 @@ public class JsonUtils {
 		data.add("dish", dish);
 		
 		String jsonString = new Gson().toJson(data);
-		
-		System.out.println(jsonString);
 		
 		return jsonString;
 		
@@ -87,8 +79,6 @@ public class JsonUtils {
 		
 		String jsonString = new Gson().toJson(data);
 		
-		System.out.println(jsonString);
-		
 		return jsonString;
 		
 	}
@@ -102,8 +92,6 @@ public class JsonUtils {
 		data.addProperty("name", dishName);
 		
 		String jsonString = new Gson().toJson(data);
-		
-		System.out.println(jsonString);
 		
 		return jsonString;
 		

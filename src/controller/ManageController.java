@@ -139,10 +139,12 @@ public class ManageController implements Initializable{
 			
 			if(action.get() == ButtonType.OK) {
 				
+				String dishName = dishList.getItems().get(selectedDish).getName();
+				
 				dishList.getItems().remove(selectedDish);
 				Main.restaurant.getDishes().remove(selectedDish);
 				
-				String requestBody = JsonUtils.deleteDishData(dishList.getItems().get(selectedDish).getName());
+				String requestBody = JsonUtils.deleteDishData(dishName);
 				
 				RequestUtils.httpPostRequest("/restaurants/deleteDish", requestBody);
 				
