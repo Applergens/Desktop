@@ -26,6 +26,8 @@ import javafx.stage.StageStyle;
 import model.Allergen;
 import model.Dish;
 import model.Ingredient;
+import util.JsonUtils;
+import util.RequestUtils;
 
 public class CreateController implements Initializable{
 	
@@ -117,7 +119,7 @@ public class CreateController implements Initializable{
 	}
 	
 	@FXML
-    void saveDish(ActionEvent event) {
+    void saveDish(ActionEvent event) throws IOException, InterruptedException {
 
 		boolean save = checkDish();
 		if (!save) {
@@ -135,7 +137,15 @@ public class CreateController implements Initializable{
 			
 			Main.restaurant.addDish(d);
 			
+			String requestBody = JsonUtils.createDishData(d);
+			
+			RequestUtils.httpPostRequest("/restaurants/createDish", requestBody);
+			
 			Alert alert = new Alert(AlertType.INFORMATION, "Plato guardado correctamente");
+			
+			alert.showAndWait();
+			
+			exitBtn.fire();
 			
 		}
     }

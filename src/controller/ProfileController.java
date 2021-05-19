@@ -2,6 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -25,6 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Dish;
+import util.CryptUtils;
 import util.JsonUtils;
 import util.RequestUtils;
 
@@ -72,10 +76,12 @@ public class ProfileController implements Initializable{
     @FXML
     private PasswordField passFld2;
     
-    boolean isChanging = false;
+    boolean isChanging;
     
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+    	
+    	isChanging = false;
 
     	fillUpData();
     			
@@ -163,12 +169,22 @@ public class ProfileController implements Initializable{
     }
     
     @FXML
-    void acceptChangePass(ActionEvent event) throws IOException{
+    void acceptChangePass(ActionEvent event) throws IOException, NoSuchAlgorithmException{
     	
     	if(passFld1.getText().equals("") || passFld2.getText().equals("") || !passFld1.getText().equals(passFld2.getText())) {
+    		
     		System.out.println("SoMETHING WRONG");
+    		
     	} else {
     		
+    		final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+    		
+    		final byte[] hashbytes = digest.digest(passFld1.getText().getBytes(StandardCharsets.UTF_8));
+    		
+    		String password = CryptUtils.bytesToHex(hashbytes);
+    		
+    		Main.restaurant.setPassword(password);
+    	   		
     		isChanging = true;
     		
     		disableChangePass();
@@ -178,7 +194,7 @@ public class ProfileController implements Initializable{
     @FXML
     void exit(ActionEvent event) throws IOException, InterruptedException {
     	
-    	RequestUtils.httpPostRequest("/restaurants/updateData", JsonUtils.jsonUpdateRestaurantData());
+    	RequestUtils.httpPostRequest("/restaurants/updateData", JsonUtils.updateRestaurantData());
     	
     	Stage stage = new Stage();
     	

@@ -24,6 +24,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Dish;
 import model.Ingredient;
+import util.JsonUtils;
+import util.RequestUtils;
 
 public class ManageController implements Initializable{
 	
@@ -48,14 +50,12 @@ public class ManageController implements Initializable{
 
     public static Dish editableDish;
     
-    ArrayList<Dish> dishes = Main.restaurant.getDishes();
-    
     Dish dish;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		for (Dish d : dishes) {
+		for (Dish d : Main.restaurant.getDishes()) {
 			
 			dishList.getItems().add(d);
 		
@@ -110,7 +110,7 @@ public class ManageController implements Initializable{
 			alert = new Alert(AlertType.ERROR, "No se ha seleccionado ningun plato");
 		} else {
 			int selectedDish = dishList.getSelectionModel().getSelectedIndex();
-			editableDish = dishes.get(selectedDish);
+			editableDish = Main.restaurant.getDishes().get(selectedDish);
 			
 			changeScene("EditView.fxml");
 		}
@@ -122,7 +122,7 @@ public class ManageController implements Initializable{
 	}
 	
 	@FXML
-	void deleteDish() throws IOException{
+	void deleteDish() throws IOException, InterruptedException{
 		
 		Alert alert;
 		
@@ -138,10 +138,18 @@ public class ManageController implements Initializable{
 			Optional<ButtonType> action = alert.showAndWait();
 			
 			if(action.get() == ButtonType.OK) {
-				Dish dishToDelete = dishList.getItems().get(selectedDish);
+				
 				dishList.getItems().remove(selectedDish);
-				dishes.remove(selectedDish);
-				// Llamada a la api para eliminar plato
+				Main.restaurant.getDishes().remove(selectedDish);
+				
+				String requestBody = JsonUtils.deleteDishData(dishList.getItems().get(selectedDish).getName());
+				
+				RequestUtils.httpPostRequest("/restaurants/deleteDish", requestBody);
+				
+				alert = new Alert(AlertType.INFORMATION, "Plato borrado correctamente");
+				
+				alert.showAndWait();
+				
 			} else {
 				alert = new Alert(AlertType.ERROR, "Plato no eliminado");
 				alert.show();

@@ -78,5 +78,11 @@ public class Restaurant {
 		dishes.add(dish);
 		
 	}
+
+	public void setPassword(String text) {
+		
+		this.password = text;
+		
+	}
 	
 }

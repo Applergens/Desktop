@@ -64,28 +64,5 @@ public class RequestUtils {
 		
 	}
 	
-	public static String getByIdRequest(String endpoint, String id) throws IOException, InterruptedException {
-		
-		URI uri = URI.create(api + endpoint + "/getById?id=" + id);
-		
-		HttpClient client = HttpClient.newHttpClient();
-		
-		HttpRequest request = HttpRequest.newBuilder(uri)
-				.build();
-		
-		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-		
-		if (response.statusCode() == 200) {
-			
-			return response.body();
-			
-		} else {
-			
-			return "Invalid";
-			
-		}
-		
-	}
-	
 	
 }

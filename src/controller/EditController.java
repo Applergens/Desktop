@@ -26,6 +26,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Dish;
 import model.Ingredient;
+import util.JsonUtils;
+import util.RequestUtils;
 
 public class EditController implements Initializable{
 	
@@ -55,9 +57,13 @@ public class EditController implements Initializable{
 
     @FXML
     private Button saveDish;
+    
+    String initialDishName;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		initialDishName = ManageController.editableDish.getName();
 		
 		ArrayList<Ingredient> ingredientsDish = ManageController.editableDish.getIngredients();
 		
@@ -133,30 +139,35 @@ public class EditController implements Initializable{
 	}
 	
 	@FXML
-	void saveDish() throws IOException{
+	void saveDish() throws IOException, InterruptedException{
 		
-		Dish d;
+		int index = Main.restaurant.getDishes().indexOf(ManageController.editableDish);
+		
+		Dish d = Main.restaurant.getDishes().get(index);
+		
+		d.setName(dishNameTxtField.getText());
 		
 		if(dishIngredientsLV.getItems().size() != 0 && !dishNameTxtField.getText().equals("")) {
 			
-			d = new Dish(dishNameTxtField.getText());
+			ArrayList<Ingredient> il = new ArrayList<Ingredient>();
 			
 			for (Ingredient i : dishIngredientsLV.getItems()) {
 				
-				d.addIngredient(i);
+				il.add(i);
 				
 			}
 			
-			Main.restaurant.addDish(d);
+			d.setIngredients(il);
+							
+			String requestBody = JsonUtils.updateDishData(d, initialDishName);
 			
-			Main.restaurant.removeDish(ManageController.editableDish);
+			RequestUtils.httpPostRequest("/restaurants/updateDish", requestBody);
 			
 			Alert alert = new Alert(AlertType.INFORMATION, "Plato editado correctamente");
 			
 			alert.showAndWait();
 			
-			// Aqui hay que hacer dos llamadas a la api, deleteDish (eliminar el editableDish de la clase ManageController) y 			createDish para crear el nuevo plato editado
-			// También habria que mostrar mensaje de confirmación y cerrar ventana/vaciar campos
+			btnExit.fire();
 			
 		} else {
 			Alert alert = new Alert(AlertType.ERROR, "Introducir nombre y ingredientes");
