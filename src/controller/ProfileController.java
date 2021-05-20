@@ -173,7 +173,7 @@ public class ProfileController implements Initializable{
     	
     	if(passFld1.getText().equals("") || passFld2.getText().equals("") || !passFld1.getText().equals(passFld2.getText())) {
     		
-    		Alert alert = new Alert(AlertType.CONFIRMATION, "Asegurate de introducir 2 contraseñas iguales");
+    		Alert alert = new Alert(AlertType.ERROR, "Asegurate de introducir 2 contraseñas iguales");
     		
     		alert.showAndWait();
     		

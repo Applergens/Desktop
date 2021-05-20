@@ -11,7 +11,7 @@ import java.net.http.HttpResponse.BodyHandlers;
 public class RequestUtils {
 	
 	public static String api = "https://apilergens.herokuapp.com";
-	public static String apiLocal = "http://localhost:5000";
+//	public static String api = "http://localhost:5000";
 	
 	public static String httpPostRequest(String endPoint, String jsonData) throws IOException, InterruptedException {
 		

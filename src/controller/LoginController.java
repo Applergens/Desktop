@@ -25,6 +25,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -41,6 +42,9 @@ public class LoginController implements Initializable {
 	
 	double xOffset = 0;
 	double yOffset = 0;
+	
+	@FXML
+	private ImageView imgAllergens;
 
     @FXML
     private PasswordField fieldPassword;
@@ -99,7 +103,6 @@ public class LoginController implements Initializable {
         		
         		changeScene("MenuView.fxml");
         		
-        	
         	}
     		
     	}

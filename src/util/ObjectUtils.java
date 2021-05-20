@@ -27,7 +27,7 @@ public class ObjectUtils {
 		
 		Gson gson = new Gson(); 
 		
-		String responseBody = RequestUtils.getAllRequest("/allergens");			
+		String responseBody = RequestUtils.getAllRequest("/allergens");	
 			 
 		JsonParser jsonParser = new JsonParser();
 		
@@ -66,9 +66,17 @@ public class ObjectUtils {
 			
 			String ingredientId = ingredient.get("_id").getAsString();
 			String ingredientName = ingredient.get("name").getAsString();
-			Allergen ingredientAllergen = getAllergenByID(ingredient.get("allergen").getAsString());
+			JsonElement ingredientAllergen = ingredient.get("allergen");;
 			
-			Main.ingredientList.add(new Ingredient(ingredientId, ingredientName, ingredientAllergen));
+			Allergen allergen = null;
+			
+			if (!ingredientAllergen.isJsonNull()) {
+				
+				allergen = getAllergenByID(ingredient.get("allergen").getAsString());
+				
+			}
+						
+			Main.ingredientList.add(new Ingredient(ingredientId, ingredientName, allergen));
 			
 		}
 				

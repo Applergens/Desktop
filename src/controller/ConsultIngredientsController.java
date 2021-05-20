@@ -25,7 +25,7 @@ import javafx.stage.StageStyle;
 import model.Allergen;
 import model.Ingredient;
 
-public class ConsultDishesController implements Initializable{
+public class ConsultIngredientsController implements Initializable{
 	
 	double xOffset = 0;
 	double yOffset = 0;
@@ -48,7 +48,17 @@ public class ConsultDishesController implements Initializable{
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		for (Ingredient ingredient : Main.ingredientList) {
-			data.add(new tableData(ingredient.getName(), ingredient.getAllergen().getName()));
+			
+			if (ingredient.getAllergen() == null) {
+				
+				data.add(new tableData(ingredient.getName(), ""));
+				
+			} else {
+				
+				data.add(new tableData(ingredient.getName(), ingredient.getAllergen().getName()));
+				
+			}			
+			
 		}
 		
 		ingColumn.setCellValueFactory(new PropertyValueFactory<Ingredient, String>("ingName"));

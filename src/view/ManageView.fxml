@@ -9,26 +9,34 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageController">
    <top>
-      <Label prefHeight="53.0" prefWidth="757.0" text="Gestionar Platos" BorderPane.alignment="CENTER">
+      <Label prefHeight="53.0" prefWidth="757.0" style="-fx-background-color: #ff464e;" text="Gestionar Platos" textFill="WHITE" BorderPane.alignment="CENTER">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
          <graphic>
-            <AnchorPane prefHeight="53.0" prefWidth="454.0">
-               <children>
-                  <Button fx:id="btnExit" layoutX="-2.0" layoutY="-2.0" mnemonicParsing="false" onAction="#exit" text="X" />
-                  <Label layoutX="243.0" layoutY="30.0" text="NOMBRE DEL PLATO" />
-               </children>
-            </AnchorPane>
+            <Button fx:id="btnExit" mnemonicParsing="false" onAction="#exit" style="-fx-background-color: transparent;" text="X" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Button>
          </graphic>
       </Label>
    </top>
    <bottom>
       <AnchorPane prefHeight="54.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="editDish" layoutX="116.0" layoutY="14.0" mnemonicParsing="false" onAction="#edit" text="Editar Plato" />
-            <Button fx:id="createDish" layoutX="410.0" layoutY="14.0" mnemonicParsing="false" onAction="#create" text="Crear Plato" />
-            <Button fx:id="deleteDishBtn" layoutX="256.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteDish" text="Eliminar Plato" />
+            <Button fx:id="createDish" layoutX="98.0" layoutY="14.0" mnemonicParsing="false" onAction="#create" prefHeight="31.0" prefWidth="114.0" style="-fx-background-color: #ff464e;" text="Crear Plato" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Button>
+            <Button fx:id="deleteDishBtn" layoutX="388.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteDish" style="-fx-background-color: #ff464e;" text="Borrar Plato" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Button>
+            <Button fx:id="editDish" layoutX="249.0" layoutY="14.0" mnemonicParsing="false" onAction="#edit" style="-fx-background-color: #ff464e;" text="Editar Plato" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Button>
          </children>
       </AnchorPane>
    </bottom>
@@ -39,6 +47,6 @@
       <AnchorPane prefHeight="304.0" prefWidth="113.0" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <ListView fx:id="dishList" prefHeight="250.0" prefWidth="388.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="dishList" prefHeight="250.0" prefWidth="389.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

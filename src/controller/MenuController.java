@@ -118,13 +118,14 @@ public class MenuController  implements Initializable{
     }
     
     @FXML
-    void manageDishes() throws IOException {
+    void manageDishes(ActionEvent event) throws IOException {
+    	    	
     	changeScene("ManageView.fxml");
     }
     
     @FXML
-    void consultDishes(ActionEvent event) throws IOException{
-    	changeScene("ConsultDishesView.fxml");
+    void consultIngredients(ActionEvent event) throws IOException{
+    	changeScene("ConsultIngredientsView.fxml");
     }
     
     @FXML
@@ -135,6 +136,9 @@ public class MenuController  implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		lblMenu.setText("Gestor " + '"' + Main.restaurant.getName() + '"');
+		
 	}
 
 }

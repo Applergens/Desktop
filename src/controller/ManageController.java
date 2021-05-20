@@ -108,6 +108,9 @@ public class ManageController implements Initializable{
 		
 		if(dishList.getSelectionModel().getSelectedIndex() == -1) {
 			alert = new Alert(AlertType.ERROR, "No se ha seleccionado ningun plato");
+			
+			alert.showAndWait();
+			
 		} else {
 			int selectedDish = dishList.getSelectionModel().getSelectedIndex();
 			editableDish = Main.restaurant.getDishes().get(selectedDish);
@@ -128,6 +131,9 @@ public class ManageController implements Initializable{
 		
 		if(dishList.getSelectionModel().getSelectedIndex() == -1) {
 			alert = new Alert(AlertType.ERROR, "No se ha seleccionado ningun plato");
+			
+			alert.showAndWait();
+			
 		} else {
 			int selectedDish = dishList.getSelectionModel().getSelectedIndex();
 			
@@ -152,9 +158,6 @@ public class ManageController implements Initializable{
 				
 				alert.showAndWait();
 				
-			} else {
-				alert = new Alert(AlertType.ERROR, "Plato no eliminado");
-				alert.show();
 			}
 		}
 	}
